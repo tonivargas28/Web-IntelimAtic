@@ -18,14 +18,14 @@ const Contact: React.FC = () => {
 
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.1,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
     try {
       await addDoc(collection(db, 'contactMessages'), {
         ...formState,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
 
       setIsSubmitting(false);
@@ -48,109 +48,86 @@ const Contact: React.FC = () => {
           name: '',
           email: '',
           phone: '',
-          message: ''
+          message: '',
         });
       }, 3000);
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
+      console.error('Error al enviar el formulario:', error);
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="py-16 bg-gradient-to-r from-[#0f52ba] to-[#0f52ba] text-white">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <motion.h2
-            ref={ref}
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-4xl font-extrabold tracking-tight"
-          >
-            Contáctanos
-          </motion.h2>
-          <p className="mt-2 text-lg max-w-lg mx-auto">
-            ¡Estamos aquí para ayudarte! Déjanos tus datos y mensaje, y nos pondremos en contacto contigo lo antes posible.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-8 bg-white p-8 rounded-2xl shadow-xl">
-          <div className="flex flex-col">
-            <label htmlFor="name" className="mb-2 font-semibold text-gray-800 flex items-center gap-2">
-              <Mail size={20} /> Nombre
-            </label>
+    <section id="contact" className="py-20 px-6 bg-gray-100 dark:bg-gray-900">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 md:p-12"
+      >
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-white">Contáctame</h2>
+        <form onSubmit={handleSubmit} className="grid gap-6">
+          <div className="relative">
+            <Mail className="absolute top-3 left-3 text-gray-400" />
             <input
-              id="name"
+              type="text"
               name="name"
+              placeholder="Nombre"
               value={formState.name}
               onChange={handleChange}
-              className="p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f52ba]"
               required
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
-          <div className="flex flex-col">
-            <label htmlFor="email" className="mb-2 font-semibold text-gray-800 flex items-center gap-2">
-              <Mail size={20} /> Email
-            </label>
+          <div className="relative">
+            <Mail className="absolute top-3 left-3 text-gray-400" />
             <input
-              id="email"
-              name="email"
               type="email"
+              name="email"
+              placeholder="Correo electrónico"
               value={formState.email}
               onChange={handleChange}
-              className="p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f52ba]"
               required
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
-          <div className="flex flex-col">
-            <label htmlFor="phone" className="mb-2 font-semibold text-gray-800 flex items-center gap-2">
-              <Phone size={20} /> Teléfono
-            </label>
+          <div className="relative">
+            <Phone className="absolute top-3 left-3 text-gray-400" />
             <input
-              id="phone"
+              type="tel"
               name="phone"
+              placeholder="Teléfono"
               value={formState.phone}
               onChange={handleChange}
-              className="p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f52ba]"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
-          <div className="flex flex-col">
-            <label htmlFor="message" className="mb-2 font-semibold text-gray-800 flex items-center gap-2">
-              <MessageSquare size={20} /> Mensaje
-            </label>
+          <div className="relative">
+            <MessageSquare className="absolute top-3 left-3 text-gray-400" />
             <textarea
-              id="message"
               name="message"
-              rows={6}
+              placeholder="Tu mensaje"
               value={formState.message}
               onChange={handleChange}
-              className="p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f52ba]"
               required
-            ></textarea>
+              rows={5}
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            />
           </div>
-
           <button
             type="submit"
-            className="w-full bg-[#0f52ba] hover:bg-[#0f52ba] text-white py-3 px-6 rounded-lg flex items-center justify-center gap-3 transition duration-300"
             disabled={isSubmitting}
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all duration-200 disabled:opacity-50"
           >
-            {isSubmitting ? 'Enviando...' : (
-              <>
-                <Send size={20} />
-                Enviar
-              </>
-            )}
+            {isSubmitting ? 'Enviando...' : 'Enviar'}
+            <Send size={18} />
           </button>
-
           {isSubmitted && (
-            <p className="text-green-600 text-center mt-4">¡Mensaje enviado con éxito!</p>
+            <p className="text-green-600 dark:text-green-400 text-center">¡Mensaje enviado con éxito!</p>
           )}
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 };
