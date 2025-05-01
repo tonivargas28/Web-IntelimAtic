@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as LucideIcons from 'lucide-react';
 import { ServiceItem } from '../types';
-import { Play, X } from 'lucide-react';
+import {  X } from 'lucide-react';
+
 
 interface ServiceCardProps {
   service: ServiceItem;
@@ -11,7 +12,7 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
   const [showVideo, setShowVideo] = useState(false);
-  const { title, description, icon, demoUrl, videoUrl, image } = service;
+  const { title, description, icon, videoUrl, image } = service;
   
   const IconComponent = LucideIcons[icon as keyof typeof LucideIcons];
 
