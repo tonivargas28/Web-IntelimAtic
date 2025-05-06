@@ -6,7 +6,7 @@ import Benefits from './components/Benefits';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-
+import FloatingChatbot from './components/floatingChatbot';
 function App() {
   useEffect(() => {
     // Update document title
@@ -22,8 +22,10 @@ function App() {
         <Benefits />
         <About />
         <Contact />
+        <FloatingChatbot />
       </main>
       <Footer />
+
     </div>
   );
 }
