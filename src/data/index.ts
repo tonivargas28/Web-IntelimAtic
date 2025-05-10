@@ -99,7 +99,7 @@ export const team: TeamMember[] = [
   {
     id: 1,
     name: 'IntelimAtic',
-    role: 'Soluciones de inteligencia artificial y automatización para su empresa.',
+    role: 'Soluciones de inteligencia artificial y automatización para empresas.',
     image: logoIA
   },
   {
